@@ -49,3 +49,7 @@ def transform_cards(cards_df):
     ]]
 
     return cards_df
+
+def transform_merchant_category(merchant_category_df):
+    merchant_category_df = merchant_category_df.astype({"mcc":int})
+    return merchant_category_df

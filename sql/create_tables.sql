@@ -32,7 +32,7 @@ CREATE TABLE cards(
     has_chip BOOLEAN NOT NULL,
     credit_limit DECIMAL NOT NULL,
     acct_open_date DATE NOT NULL,
-    year_pin_last_changed DATE NOT NULL
+    year_pin_last_changed INT NOT NULL
 );
 
 CREATE TABLE merchants(
