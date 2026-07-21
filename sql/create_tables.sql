@@ -7,7 +7,11 @@ DROP TABLE IF EXISTS merchant_category;
 CREATE TABLE users(
     user_id INT PRIMARY KEY,
     current_age INT NOT NULL,
+    retirement_age INT NOT NULL,
+    birth_year INT NOT NULL,
+    birth_month INT NOT NULL,
     gender CHAR(1) NOT NULL CHECK (gender in ('M', 'F', 'O')),
+    per_capita_income DECIMAL NOT NULL,
     yearly_income DECIMAL NOT NULL,
     total_debt DECIMAL NOT NULL,
     credit_score INT NOT NULL,
@@ -24,10 +28,11 @@ CREATE TABLE cards(
     user_id INT NOT NULL REFERENCES users(user_id),
     card_brand TEXT NOT NULL,
     card_type TEXT NOT NULL,
+    expiration_date DATE NOT NULL,
+    has_chip BOOLEAN NOT NULL,
     credit_limit DECIMAL NOT NULL,
-    has_chip BOOLEAN NOT NULL, 
-    year_pin_last_changed DATE NOT NULL,
-    card_on_dark_web BOOLEAN NOT NULL
+    acct_open_date DATE NOT NULL,
+    year_pin_last_changed DATE NOT NULL
 );
 
 CREATE TABLE merchants(

@@ -23,3 +23,29 @@ def transform_users(users_df):
         "num_credit_cards"
     ]]
     return users_df
+
+def transform_cards(cards_df):
+    cards_df["has_chip"] = cards_df["has_chip"].str.upper().map({"YES":True, "NO":False})
+    cards_df["credit_limit"] = cards_df["credit_limit"].replace(r"\$", "", regex=True)
+
+    cards_df["expires"] = pd.to_datetime(cards_df["expires"], format="%m/%Y")
+    cards_df["acct_open_date"] = pd.to_datetime(cards_df["acct_open_date"], format="%m/%Y")    
+    cards_df = cards_df.astype({
+        "credit_limit":float
+    })
+
+    cards_df = cards_df.rename(columns={"id":"card_id", "client_id":"user_id", "expires":"expiration_date"})
+
+    cards_df = cards_df[[
+        "card_id",
+        "user_id",
+        "card_brand",
+        "card_type",
+        "expiration_date",
+        "has_chip",
+        "credit_limit",
+        "acct_open_date",
+        "year_pin_last_changed"
+    ]]
+
+    return cards_df

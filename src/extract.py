@@ -3,7 +3,8 @@ from pathlib import Path
 import json
 
 # Path to the raw data folder
-RAW_DATA_DIR = Path("data/raw")
+BASE_DIR = Path(__file__).resolve().parent.parent
+RAW_DATA_DIR = BASE_DIR / "data" / "raw"
 
 def extract_csv(filename):
     try:
