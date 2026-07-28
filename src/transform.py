@@ -53,3 +53,20 @@ def transform_cards(cards_df):
 def transform_merchant_category(merchant_category_df):
     merchant_category_df = merchant_category_df.astype({"mcc":int})
     return merchant_category_df
+
+def transform_merchants(transactions_df): #US only has 50 states but some merchant ids have 99 unique states 
+    physical_transactions_df = transactions_df[transactions_df['merchant_city'].str.upper() != 'ONLINE']
+    physical_transactions_df = physical_transactions_df.groupby('merchant_id').agg(
+        mcc = ('mcc', lambda x: x.mode()[0]),
+        merchant_city = ('merchant_city', lambda x: x.mode()[0]),
+        merchant_state = ('merchant_state', lambda x: x.mode()[0] if not x.mode().empty else None),
+        zip = ('zip', lambda x: x.mode()[0] if not x.mode().empty else None)
+    ).reset_index()
+
+    online_transactions_df = transactions_df[transactions_df['merchant_city'].str.upper() == 'ONLINE']
+    online_transactions_df = transactions_df[['merchant_id', 'mcc', 'merchant_city', 'merchant_state', 'zip']]
+
+    merchants_df = pd.concat([physical_transactions_df, online_transactions_df], axis=0, ignore_index=True)
+    merchants_df['zip'] = merchants_df['zip'].astype('Int64').astype('string')
+
+    return merchants_df
