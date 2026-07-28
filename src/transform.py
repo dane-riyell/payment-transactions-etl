@@ -64,9 +64,16 @@ def transform_merchants(transactions_df): #US only has 50 states but some mercha
     ).reset_index()
 
     online_transactions_df = transactions_df[transactions_df['merchant_city'].str.upper() == 'ONLINE']
-    online_transactions_df = transactions_df[['merchant_id', 'mcc', 'merchant_city', 'merchant_state', 'zip']]
+    online_transactions_df = online_transactions_df.groupby('merchant_id').agg(
+        mcc = ('mcc', lambda x: x.mode()[0])
+    ).reset_index()
+
+    online_transactions_df['merchant_city'] = 'ONLINE'
+    online_transactions_df['merchant_state'] = None
+    online_transactions_df['zip'] = None
 
     merchants_df = pd.concat([physical_transactions_df, online_transactions_df], axis=0, ignore_index=True)
+    merchants_df = merchants_df.drop_duplicates(subset='merchant_id', keep='first')
     merchants_df['zip'] = merchants_df['zip'].astype('Int64').astype('string')
 
     return merchants_df
