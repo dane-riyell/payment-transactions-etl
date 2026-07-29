@@ -1,3 +1,5 @@
+import pandas as pd
+
 def transform_users(users_df):
     to_numeric_cols = ["yearly_income", "total_debt", "per_capita_income"]
     users_df[to_numeric_cols] = users_df[to_numeric_cols].replace(r"\$", "", regex=True)
