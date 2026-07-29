@@ -50,5 +50,6 @@ CREATE TABLE transactions(
     merchant_id INT NOT NULL REFERENCES merchants(merchant_id),
     amount DECIMAL NOT NULL,
     date DATE NOT NULL, 
+    transaction_type TEXT NOT NULL,
     errors TEXT
 );

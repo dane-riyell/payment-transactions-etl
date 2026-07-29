@@ -73,7 +73,33 @@ def transform_merchants(transactions_df): #US only has 50 states but some mercha
     online_transactions_df['zip'] = None
 
     merchants_df = pd.concat([physical_transactions_df, online_transactions_df], axis=0, ignore_index=True)
-    merchants_df = merchants_df.drop_duplicates(subset='merchant_id', keep='first')
+    merchants_df = merchants_df.drop_duplicates(subset='merchant_id', keep='first', ignore_index=True)
     merchants_df['zip'] = merchants_df['zip'].astype('Int64').astype('string')
 
     return merchants_df
+
+def transform_transactions(transactions_df):
+    transactions_df = transactions_df.rename(
+        columns=({
+            'id':'transaction_id',
+            'client_id':'user_id',
+            'use_chip':'transaction_type'
+
+        })
+    )
+
+    transactions_df['amount'] = transactions_df['amount'].replace(r"\$", "", regex=True).astype(float)
+    transactions_df['date'] = pd.to_datetime(transactions_df['date'])
+
+    transactions_df = transactions_df[[
+        'transaction_id',
+        'user_id',
+        'card_id',
+        'merchant_id',
+        'amount',
+        'date',
+        'transaction_type',
+        'errors'
+    ]]
+
+    return transactions_df
