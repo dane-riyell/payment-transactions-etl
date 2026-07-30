@@ -1,6 +1,6 @@
+data/raw/
 __pycache__/
 *.pyc
 *.ipynb
 venv/
 .env
-data/raw/
