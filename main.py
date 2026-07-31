@@ -6,6 +6,13 @@ from src.transform import (
     transform_merchants,
     transform_transactions
 )
+from src.load import (
+    load_users,
+    load_merchant_category,
+    load_cards,
+    load_merchants,
+    load_transactions
+)
 
 if __name__ == "__main__":
     users_df = extract_csv("users_data.csv")
@@ -27,3 +34,9 @@ if __name__ == "__main__":
 
     transactions_df = transform_transactions(transactions_df)
     print(f"transactions_df transformed: {transactions_df.shape}")
+
+    load_users(users_df)
+    load_merchant_category(merchant_category_df)
+    load_cards(cards_df)
+    load_merchants(merchants_df)
+    load_transactions(transactions_df)

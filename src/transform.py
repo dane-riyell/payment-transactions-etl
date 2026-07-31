@@ -11,6 +11,8 @@ def transform_users(users_df):
     
     users_df = users_df.rename(columns={"id":"user_id"})
 
+    users_df["gender"] = users_df["gender"].str.upper().map({"FEMALE":"F", "MALE":"M"})
+
     users_df = users_df[[
         "user_id",
         "current_age",

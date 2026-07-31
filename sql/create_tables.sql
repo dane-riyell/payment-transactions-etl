@@ -10,7 +10,7 @@ CREATE TABLE users(
     retirement_age INT NOT NULL,
     birth_year INT NOT NULL,
     birth_month INT NOT NULL,
-    gender CHAR(1) NOT NULL CHECK (gender in ('M', 'F', 'O')),
+    gender CHAR(1) NOT NULL CHECK (gender in ('M', 'F')),
     per_capita_income DECIMAL NOT NULL,
     yearly_income DECIMAL NOT NULL,
     total_debt DECIMAL NOT NULL,
