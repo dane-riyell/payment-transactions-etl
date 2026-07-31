@@ -1,5 +1,6 @@
 from src.db import engine
 import time
+from io import StringIO
 
 def load_users(users_df):
     start = time.perf_counter()
@@ -27,6 +28,32 @@ def load_merchants(merchants_df):
 
 def load_transactions(transactions_df):
     start = time.perf_counter()
-    transactions_df.to_sql("transactions", engine, if_exists="append", index=False)
+
+    # Create an in-memory CSV
+    buffer = StringIO()
+    transactions_df.to_csv(buffer, index=False, header=False)
+    buffer.seek(0)
+
+    # Connect to PostgreSQL
+    raw_conn = engine.raw_connection()
+    cur = raw_conn.cursor()
+
+    # SQL COPY command
+    copy_sql = '''
+        COPY transactions
+        FROM STDIN
+        WITH (FORMAT CSV)
+    '''
+    
+    try:
+        # Bulk load
+        cur.copy_expert(copy_sql, buffer)
+        # Save changes
+        raw_conn.commit()
+    except Exception as e:
+        print(e)
+    finally:
+        cur.close()
+    
     elapsed = time.perf_counter() - start
     print(f"Loaded transactions table in {elapsed:.2f} seconds")
