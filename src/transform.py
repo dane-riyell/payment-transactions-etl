@@ -1,4 +1,7 @@
 import pandas as pd
+import logging
+
+logger = logging.getLogger(__name__)
 
 def transform_users(users_df):
     to_numeric_cols = ["yearly_income", "total_debt", "per_capita_income"]
@@ -26,6 +29,8 @@ def transform_users(users_df):
         "credit_score",
         "num_credit_cards"
     ]]
+
+    logger.info(f"users_df transformed: {users_df.shape}")
     return users_df
 
 def transform_cards(cards_df):
@@ -52,10 +57,13 @@ def transform_cards(cards_df):
         "year_pin_last_changed"
     ]]
 
+    logger.info(f"cards_df transformed: {cards_df.shape}")
     return cards_df
 
 def transform_merchant_category(merchant_category_df):
     merchant_category_df = merchant_category_df.astype({"mcc":int})
+
+    logger.info(f"merchant_category_df transformed: {merchant_category_df.shape}")
     return merchant_category_df
 
 def transform_merchants(transactions_df): #US only has 50 states but some merchant ids have 99 unique states 
@@ -80,6 +88,7 @@ def transform_merchants(transactions_df): #US only has 50 states but some mercha
     merchants_df = merchants_df.drop_duplicates(subset='merchant_id', keep='first', ignore_index=True)
     merchants_df['zip'] = merchants_df['zip'].astype('Int64').astype('string')
 
+    logger.info(f"merchants_df transformed: {merchants_df.shape}")
     return merchants_df
 
 def transform_transactions(transactions_df):
@@ -106,4 +115,5 @@ def transform_transactions(transactions_df):
         'errors'
     ]]
 
+    logger.info(f"transactions_df transformed: {transactions_df.shape}")
     return transactions_df

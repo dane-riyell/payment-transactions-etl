@@ -1,0 +1,21 @@
+2026-08-01 14:55:20,052 - src.extract - INFO - Loaded 2000 rows and 14 columns from users_data.csv
+2026-08-01 14:55:20,094 - src.extract - INFO - Loaded 6146 rows and 13 columns from cards_data.csv
+2026-08-01 14:55:20,107 - src.extract - INFO - Loaded 109 rows and 2 columns from mcc_codes.json
+2026-08-01 14:55:46,120 - src.extract - INFO - Loaded 13305915 rows and 12 columns from transactions_data.csv
+2026-08-01 14:55:46,152 - src.transform - INFO - users_df transformed: (2000, 11)
+2026-08-01 14:55:46,179 - src.transform - INFO - cards_df transformed: (6146, 9)
+2026-08-01 14:55:46,181 - src.transform - INFO - merchant_category_df transformed: (109, 2)
+2026-08-01 14:57:08,077 - src.extract - INFO - Loaded 2000 rows and 14 columns from users_data.csv
+2026-08-01 14:57:08,094 - src.extract - INFO - Loaded 6146 rows and 13 columns from cards_data.csv
+2026-08-01 14:57:08,094 - src.extract - INFO - Loaded 109 rows and 2 columns from mcc_codes.json
+2026-08-01 14:57:29,751 - src.extract - INFO - Loaded 13305915 rows and 12 columns from transactions_data.csv
+2026-08-01 14:57:29,767 - src.transform - INFO - users_df transformed: (2000, 11)
+2026-08-01 14:57:29,780 - src.transform - INFO - cards_df transformed: (6146, 9)
+2026-08-01 14:57:29,781 - src.transform - INFO - merchant_category_df transformed: (109, 2)
+2026-08-01 14:58:30,667 - src.transform - INFO - merchants_df transformed: (74831, 5)
+2026-08-01 14:58:49,339 - src.transform - INFO - transactions_df transformed: (13305915, 8)
+2026-08-01 14:58:49,909 - src.load - INFO - Loaded users table in 0.30 seconds
+2026-08-01 14:58:49,914 - src.load - INFO - Loaded merchant_category table in 0.00 seconds
+2026-08-01 14:58:50,217 - src.load - INFO - Loaded cards table in 0.30 seconds
+2026-08-01 14:58:52,010 - src.load - INFO - Loaded merchants table in 1.79 seconds
+2026-08-01 15:05:37,819 - src.load - INFO - Loaded transactions table in 405.81 seconds
