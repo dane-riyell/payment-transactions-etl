@@ -1,4 +1,5 @@
 from src.logging_config import setup_logging
+
 setup_logging()
 
 from src.extract import extract_csv, extract_mcc_json
@@ -10,6 +11,7 @@ from src.transform import (
     transform_transactions
 )
 from src.load import (
+    truncate_all_tables,
     load_users,
     load_merchant_category,
     load_cards,
@@ -28,6 +30,8 @@ if __name__ == "__main__":
     merchant_category_df = transform_merchant_category(merchant_category_df)
     merchants_df = transform_merchants(transactions_df)
     transactions_df = transform_transactions(transactions_df)
+
+    truncate_all_tables()
 
     load_users(users_df)
     load_merchant_category(merchant_category_df)

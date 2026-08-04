@@ -1,9 +1,31 @@
 from src.db import engine
+from sqlalchemy import text
 import time
 from io import StringIO
 import logging
 
 logger = logging.getLogger(__name__)
+
+def truncate_all_tables():
+    choice = input('''Truncate tables before loading?
+WARNING: This will delete all existing data. Continue? (y/n): ''').strip().lower()
+
+    if choice != "y":
+        logger.info("Skipping truncate.")
+        return
+
+    # Guard clause
+    with engine.begin() as conn:
+        conn.execute(text('''
+            TRUNCATE TABLE
+                users,
+                cards,
+                merchant_category,
+                merchants,
+                transactions
+            CASCADE;
+        '''))
+    logger.info("Tables truncated.")
 
 def load_users(users_df):
     start = time.perf_counter()
@@ -54,7 +76,8 @@ def load_transactions(transactions_df):
         # Save changes
         raw_conn.commit()
     except Exception as e:
-        print(e)
+        logger.exception(f"Failed to load transactions table: {e}")
+        raise
     finally:
         cur.close()
     
