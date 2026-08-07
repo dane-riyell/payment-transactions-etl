@@ -12,7 +12,7 @@ Raw CSV/JSON files are extracted using pandas, cleaned and reshaped through a se
 
 **Entity-Relationship Diagram:**
 
-![ERD](images/erd.png)
+![ERD](images/erd.jpg)
 
 ## Tech Stack
 
